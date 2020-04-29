@@ -14,7 +14,7 @@ class Matrix {
     int Rows;
     int Cols;
     static_assert(std::is_arithmetic<T>::value, "Non arithmetic type");
-public:
+    public:
     Matrix(int Rows, int Cols) {
         this->Rows = Rows;
         this->Cols = Cols;
@@ -93,24 +93,23 @@ public:
                         if (fabs(ptr[i][j] - op2.ptr[i][j])
                             >= 16 * DBL_EPSILON * fmax(fabs(ptr[i][j]),
                            fabs(op2.ptr[i][j]))) return false;
-                                        }
-                                        return true;
-                                }
-                        } else {
-		    return false;
-	    }
+                    }
+                    return true;
                 }
-		if (Rows == op2.Rows && Cols == op2.Cols) {
-			for (int i = 0; i < Rows; i++) {
-				for (int j = 0; j < Cols; j++) {
-					if (ptr[i][j] != op2.ptr[i][j]) return false;
-				}
-				return true;
-			}
-		}
-		return false;
-	}
-
+            } else {
+            return false;
+            }
+       }
+        if (Rows == op2.Rows && Cols == op2.Cols) {
+            for (int i = 0; i < Rows; i++) {
+                for (int j = 0; j < Cols; j++) {
+                    if (ptr[i][j] != op2.ptr[i][j]) return false;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
     bool operator!=(const Matrix<T>& op2)const {
         if (*this == op2) return false;
         return true;
@@ -170,7 +169,8 @@ public:
                             counter = k;
                         }
                     }
-                    if (std::fabs(buffer) <= std::numeric_limits<T>::epsilon() * 1E10) {
+                    if (std::fabs(buffer)
+                        <= std::numeric_limits<T>::epsilon() * 1E10) {
                         buffer = 0.;
                     }
                     M.ptr[i][counter] = buffer;
