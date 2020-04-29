@@ -86,14 +86,14 @@ public:
     }
     bool operator==(const Matrix<T>& op2) const {
         if (typeid(*this) == typeid(op2)
-            && (typeid(op2) == typeid(static_cast<float>)
-        || typeid(op2) == typeid(static_cast<float>))) {
+            && (typeid(op2) == typeid(static_cast<float>())
+        || typeid(op2) == typeid(static_cast<float>()))) {
             if (Rows == op2.Rows && Cols == op2.Cols) {
                 for (int i = 0; i < Rows; i++) {
                     for (int j = 0; j < Cols; j++) {
-                        if (fabs(ptr[i][j] - op2.ptr[i][j])
-                            >= 16 * DBL_EPSILON * fmax(fabs(ptr[i][j]),
-                           fabs(op2.ptr[i][j]))) return false;
+                        if (std::fabs(ptr[i][j] - op2.ptr[i][j])
+                            >= 16 * DBL_EPSILON * fmax(std::fabs(ptr[i][j]),
+                           std::fabs(op2.ptr[i][j]))) return false;
                     }
                     return true;
                 }
