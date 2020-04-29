@@ -88,17 +88,20 @@ public:
 	}
 
 	bool operator==(const Matrix<T>& op2) const {
-		if (typeid(*this) == typeid(op2) && (typeid(op2) == typeid(float)
-                                             || typeid(op2) == typeid(double))) {
+		if (typeid(*this) == typeid(op2)
+            && (typeid(op2) == typeid(float)|| typeid(op2) == typeid(double))) {
 			if (Rows == op2.Rows && Cols == op2.Cols) {
 				for (int i = 0; i < Rows; i++) {
 					for (int j = 0; j < Cols; j++) {
-						if (fabs(ptr[i][j] - op2.ptr[i][j]) >= 16 * DBL_EPSILON * fmax(fabs(ptr[i][j]),
+						if (fabs(ptr[i][j] - op2.ptr[i][j])
+                            >= 16 * DBL_EPSILON * fmax(fabs(ptr[i][j]),
                            fabs(op2.ptr[i][j]))) return false;
 					}
 					return true;
 				}
-			} else return false;
+			} else {
+                  return false;
+              }
 		}
 		if (Rows == op2.Rows && Cols == op2.Cols) {
 			for (int i = 0; i < Rows; i++) {
@@ -165,7 +168,7 @@ public:
 		int counter = -1;
 		Matrix M;
 		if (Cols == M2.Rows) {
-			M = Matrix (Rows, M2.Cols);
+			M = Matrix(Rows, M2.Cols);
 			for (int i = 0; i < Rows; i++) {
 				for (int k = 0; k < M2.Cols; k++) {
 					for (int j = 0; j < Cols; j++) {
@@ -181,7 +184,6 @@ public:
 					buffer = 0;
 					counter = -1;
 				}
-
 			}
 			return M;
 		} else {
@@ -272,7 +274,5 @@ public:
 		}
 		return result;
 	}
-	
 };
 #endif // INCLUDE_MATRIX_HPP_
-
