@@ -10,91 +10,87 @@
 
 template<typename T>
 class Matrix {
-	T** ptr;
-	int Rows;
-	int Cols;
-	static_assert(std::is_arithmetic<T>::value, "Non arithmetic type");
+    T** ptr;
+    int Rows;
+    int Cols;
+    static_assert(std::is_arithmetic<T>::value, "Non arithmetic type");
 public:
-	Matrix(int Rows, int Cols) {
-		this->Rows = Rows;
-		this->Cols = Cols;
-		ptr = new T * [Rows];
-		for (int i = 0; i < Rows; i++) {
-			ptr[i] = new T[Cols];
-		}
-		for (int i = 0; i < Rows; i++) {
-			for (int j = 0; j < Cols; j++) {
-				ptr[i][j] = 0;
-			}
-		}
-	}
-
-	Matrix() {
-		ptr = nullptr;
-		Rows = 0;
-		Cols = 0;
-	}
-
-	~Matrix() {
-		if (ptr != NULL) {
-			for (int i = 0; i < Rows; i++) {
-				delete []ptr[i];
-			}
-			delete[]ptr;
-		}
-	}
-
-	T* operator[](int index) {
-		return ptr[index];
-	}
-	void print() {
-		for (int i = 0; i < Rows; i++) {
-			for (int j = 0; j < Cols; j++) {
-				std::cout << ptr[i][j] << ' ';
-			}
-			std::cout << std::endl;
-		}
-	}
-	Matrix<T>& operator=(Matrix<T>& M1) {
-		if (ptr == M1.ptr) return *this;
-		Rows = M1.Rows;
-		Cols = M1.Cols;
-		if (ptr == nullptr) {
-			ptr = new T* [Rows];
-			for (int i = 0; i < Rows; i++) {
-				ptr[i] = new T[Cols];
-			}
-			for (int i = 0; i < Rows; i++) {
-				for (int j = 0; j < Cols; j++) {
-					ptr[i][j] = M1.ptr[i][j];
-				}
-			}
-		} else {
-			for (int i = 0; i < Rows; i++) {
-				delete[]ptr[i];
-			}
-			delete[]ptr;
-			ptr = new T* [Rows];
-			for (int i = 0; i < Rows; i++) {
-				ptr[i] = new T[Cols];
-			}
-			for (int i = 0; i < Rows; i++) {
-				for (int j = 0; j < Cols; j++) {
-					ptr[i][j] = M1.ptr[i][j];
-				}
-			}
-		}
-		return *this;
-	}
-
-	bool operator==(const Matrix<T>& op2) const {
-		if (typeid(*this) == typeid(op2)
+    Matrix(int Rows, int Cols) {
+        this->Rows = Rows;
+        this->Cols = Cols;
+        ptr = new T * [Rows];
+        for (int i = 0; i < Rows; i++) {
+            ptr[i] = new T[Cols];
+        }
+        for (int i = 0; i < Rows; i++) {
+            for (int j = 0; j < Cols; j++) {
+                ptr[i][j] = 0;
+            }
+        }
+    }
+    Matrix() {
+        ptr = nullptr;
+        Rows = 0;
+        Cols = 0;
+    }
+    ~Matrix() {
+        if (ptr != NULL) {
+            for (int i = 0; i < Rows; i++) {
+                delete []ptr[i];
+            }
+            delete[]ptr;
+        }
+    }
+    T* operator[](int index) {
+        return ptr[index];
+    }
+    void print() {
+        for (int i = 0; i < Rows; i++) {
+        for (int j = 0; j < Cols; j++) {
+                std::cout << ptr[i][j] << ' ';
+            }
+            std::cout << std::endl;
+        }
+    }
+    Matrix<T>& operator=(Matrix<T>& M1) {
+        if (ptr == M1.ptr) return *this;
+        Rows = M1.Rows;
+        Cols = M1.Cols;
+        if (ptr == nullptr) {
+            ptr = new T* [Rows];
+            for (int i = 0; i < Rows; i++) {
+                ptr[i] = new T[Cols];
+            }
+            for (int i = 0; i < Rows; i++) {
+                for (int j = 0; j < Cols; j++) {
+                    ptr[i][j] = M1.ptr[i][j];
+                }
+            }
+        } else {
+            for (int i = 0; i < Rows; i++) {
+                delete[]ptr[i];
+            }
+            delete[]ptr;
+            ptr = new T* [Rows];
+            for (int i = 0; i < Rows; i++) {
+                ptr[i] = new T[Cols];
+            }
+            for (int i = 0; i < Rows; i++) {
+                for (int j = 0; j < Cols; j++) {
+                    ptr[i][j] = M1.ptr[i][j];
+                }
+            }
+        }
+        return *this;
+    }
+    bool operator==(const Matrix<T>& op2) const {
+        if (typeid(*this) == typeid(op2)
             && (typeid(op2) == typeid(static_cast<float>)
-		|| typeid(op2) == typeid(static_cast<float>))) {
-			if (Rows == op2.Rows && Cols == op2.Cols) {
-				for (int i = 0; i < Rows; i++) {
-					for (int j = 0; j < Cols; j++) {
-						if (fabs(ptr[i][j] - op2.ptr[i][j])
+        || typeid(op2) == typeid(static_cast<float>))) {
+            if (Rows == op2.Rows && Cols == op2.Cols) {
+                for (int i = 0; i < Rows; i++) {
+                    for (int j = 0; j < Cols; j++) {
+                        if (fabs(ptr[i][j] - op2.ptr[i][j])
                             >= 16 * DBL_EPSILON * fmax(fabs(ptr[i][j]),
                            fabs(op2.ptr[i][j]))) return false;
 					}
