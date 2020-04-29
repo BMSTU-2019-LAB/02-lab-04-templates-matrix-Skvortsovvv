@@ -14,7 +14,8 @@ class Matrix {
     int Rows;
     int Cols;
     static_assert(std::is_arithmetic<T>::value, "Non arithmetic type");
- public:
+
+public:
     Matrix(int Rows, int Cols) {
         this->Rows = Rows;
         this->Cols = Cols;
