@@ -89,7 +89,8 @@ public:
 
 	bool operator==(const Matrix<T>& op2) const {
 		if (typeid(*this) == typeid(op2)
-            && (typeid(op2) == typeid(float)|| typeid(op2) == typeid(double))) {
+            && (typeid(op2) == typeid(static_cast<float>)
+		|| typeid(op2) == typeid(static_cast<float>))) {
 			if (Rows == op2.Rows && Cols == op2.Cols) {
 				for (int i = 0; i < Rows; i++) {
 					for (int j = 0; j < Cols; j++) {
@@ -187,7 +188,7 @@ public:
 			}
 			return M;
 		} else {
-			M = Matrix(0,0);
+			M = Matrix(0, 0);
 			return M;
 		}
 	}
