@@ -47,7 +47,6 @@ public:
 	T* operator[](int index) {
 		return ptr[index];
 	}
-
 	void print() {
 		for (int i = 0; i < Rows; i++) {
 			for (int j = 0; j < Cols; j++) {
@@ -56,7 +55,6 @@ public:
 			std::cout << std::endl;
 		}
 	}
-	
 	Matrix<T>& operator=(Matrix<T>& M1) {
 		if (ptr == M1.ptr) return *this;
 		Rows = M1.Rows;
@@ -71,8 +69,7 @@ public:
 					ptr[i][j] = M1.ptr[i][j];
 				}
 			}
-		}
-		else {
+		} else {
 			for (int i = 0; i < Rows; i++) {
 				delete[]ptr[i];
 			}
@@ -91,16 +88,17 @@ public:
 	}
 
 	bool operator==(const Matrix<T>& op2) const {
-		if (typeid(*this) == typeid(op2) && (typeid(op2) == typeid(float) || typeid(op2) == typeid(double))) {
+		if (typeid(*this) == typeid(op2) && (typeid(op2) == typeid(float)
+                                             || typeid(op2) == typeid(double))) {
 			if (Rows == op2.Rows && Cols == op2.Cols) {
 				for (int i = 0; i < Rows; i++) {
 					for (int j = 0; j < Cols; j++) {
-						if (fabs(ptr[i][j] - op2.ptr[i][j]) >= 16 * DBL_EPSILON * fmax(fabs(ptr[i][j]), fabs(op2.ptr[i][j]))) return false;
+						if (fabs(ptr[i][j] - op2.ptr[i][j]) >= 16 * DBL_EPSILON * fmax(fabs(ptr[i][j]),
+                           fabs(op2.ptr[i][j]))) return false;
 					}
 					return true;
 				}
-			}
-			else return false;
+			} else return false;
 		}
 		if (Rows == op2.Rows && Cols == op2.Cols) {
 			for (int i = 0; i < Rows; i++) {
@@ -141,8 +139,7 @@ public:
 					result.ptr[i][j] = ptr[i][j] + M1.ptr[i][j];
 				}
 			}
-		}
-		else {
+		} else {
 			result = Matrix(0, 0);
 		}
 		return result;
@@ -157,8 +154,7 @@ public:
 					result.ptr[i][j] = ptr[i][j] - M1.ptr[i][j];
 				}
 			}
-		}
-		else {
+		} else {
 			result = Matrix(0, 0);
 		}
 		return result;
@@ -188,32 +184,27 @@ public:
 
 			}
 			return M;
-		}
-		else {
+		} else {
 			M = Matrix(0,0);
 			return M;
 		}
 	}
-	
 	size_t cols() const
 	{
 		size_t c = Cols;
 		return c;
 	}
-
 	size_t rows() const
 	{
 		size_t r = Rows;
 		return r;
 	}
-
 	int get_rows() const {
 		return Rows;
 	}
 	int get_columns() const {
 		return Cols;
 	}
-
 	Matrix Inverse() const {
 		if (Rows != Cols) {
 			Matrix<T> error;
